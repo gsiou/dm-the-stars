@@ -1,0 +1,25 @@
+{
+  "name": "ask-the-stars-discord",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsiou/ask-the-stars-discord.git"
+  },
+  "author": "gsiou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gsiou/ask-the-stars-discord/issues"
+  },
+  "homepage": "https://github.com/gsiou/ask-the-stars-discord#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "tweetnacl": "^1.0.3"
+  }
+}
