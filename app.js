@@ -40,7 +40,15 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
         })
     }
 
-    return res.sendStatus(200);
+    return res.json({
+        "type": 4,
+        "data": {
+            "tts": false,
+            "content": "Congrats on sending your command!",
+            "embeds": [],
+            "allowed_mentions": { "parse": [] }
+        }
+    });
 });
 
 app.listen(port, () => {
