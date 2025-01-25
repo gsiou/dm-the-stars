@@ -43,11 +43,15 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
 
     const oracleResult = roll();
 
-    const messageContent = `
-        You asked the ⭐ Stars ⭐
-        **Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})
-        **Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})
-    `
+    const messageContent = `*You asked the ✨Stars✨\n*` +
+    `The dice rolled <${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
+    `**Inspiration**\n` +
+    `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
+    `**Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})\n\n` +
+    `**Answer (Yes / No)**\n` +
+    `Less likely: ||${oracleResult.lessLikely}||\n` +
+    `Equal Chance: ||${oracleResult.equal}||\n` +
+    `More likely: ||${oracleResult.moreLikely}||\n`
 
     return res.json({
         "type": 4,
