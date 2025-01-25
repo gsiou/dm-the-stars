@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 require('dotenv').config()
+const { roll } = require('./roll');
 
 const port = 9510;
 
@@ -40,11 +41,19 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
         })
     }
 
+    const oracleResult = roll();
+
+    const messageContent = `
+        You asked the ⭐ Stars ⭐
+        **Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})
+        **Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})
+    `
+
     return res.json({
         "type": 4,
         "data": {
             "tts": false,
-            "content": "Congrats on sending your command!",
+            "content": messageContent,
             "embeds": [],
             "allowed_mentions": { "parse": [] }
         }
