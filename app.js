@@ -43,15 +43,37 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
 
     const oracleResult = roll();
 
-    const messageContent = `*You asked the ✨Stars✨\n*` +
-    `The dice rolled <${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
-    `**Inspiration**\n` +
-    `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
-    `**Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})\n\n` +
-    `**Answer (Yes / No)**\n` +
-    `Less likely: ||${oracleResult.lessLikely}||\n` +
-    `Equal Chance: ||${oracleResult.equal}||\n` +
-    `More likely: ||${oracleResult.moreLikely}||\n`
+    let messageContent;
+    if (bodyParsed.data.name === 'askthestars') {
+        messageContent = `*You asked the ✨Stars✨\n*` +
+        `The dice rolled <${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
+        `**Inspiration**\n` +
+        `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
+        `**Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})\n\n` +
+        `**Answer (Yes / No)**\n` +
+        `Less likely: ||${oracleResult.lessLikely}||\n` +
+        `Equal Chance: ||${oracleResult.equal}||\n` +
+        `More likely: ||${oracleResult.moreLikely}||\n`
+    } else if (bodyParsed.data.name === 'question') {
+        const theQuestion = bodyParsed.data.options.find(opt => opt.name === 'question').value;
+        const lessLikely = bodyParsed.data.options.find(opt => opt.name === 'yes_is_less_likely')?.value || false;
+        const moreLikely = bodyParsed.data.options.find(opt => opt.name === 'yes_is_more_likely')?.value || false;
+        let finalAnswer;
+        if (lessLikely && !moreLikely) {
+            finalAnswer = oracleResult.lessLikely;
+        } else if (moreLikely && !lessLikely) {
+            finalAnswer = oracleResult.moreLikely;
+        } else {
+            finalAnswer = oracleResult.equal;
+        }
+        const theUser = bodyParsed.member.user.global_name;
+        messageContent = `${theUser} asked the ✨Stars✨: ${theQuestion}\n`+
+            `<${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
+            `The Stars answered: **${finalAnswer}**`;
+    } else {
+        messageContent = 'The stars are not familiar with this command.'
+    }
+
 
     return res.json({
         "type": 4,
