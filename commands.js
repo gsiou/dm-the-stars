@@ -66,6 +66,11 @@ const cmds = [{
       required: false
     }
   ]
+},
+{
+  name: 'inspiration',
+  type: 1,
+  description: "Ask the stars for inspiration",
 }];
 
 // For authorization, you can use either your bot token

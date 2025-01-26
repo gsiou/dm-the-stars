@@ -44,6 +44,8 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
     const oracleResult = roll();
 
     let messageContent;
+    const theUser = bodyParsed.member.user.global_name;
+
     if (bodyParsed.data.name === 'askthestars') {
         messageContent = `*You asked the ✨Stars✨\n*` +
         `The dice rolled <${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
@@ -66,10 +68,15 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
         } else {
             finalAnswer = oracleResult.equal;
         }
-        const theUser = bodyParsed.member.user.global_name;
         messageContent = `${theUser} asked the ✨Stars✨: ${theQuestion}\n`+
             `<${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
             `The Stars answered: **${finalAnswer}**`;
+    } else if (bodyParsed.data.name === 'inspiration') {
+        messageContent = `${theUser} asked the ✨Stars✨for inspiration\n`+
+        `<${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
+        `The Stars have answered.\n` +
+        `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
+        `**Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})\n`;
     } else {
         messageContent = 'The stars are not familiar with this command.'
     }
