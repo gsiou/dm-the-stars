@@ -20,9 +20,9 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
     if (!timestamp || !signature) {
         return res.sendStatus(400);
     }
-    console.log(timestamp);
-    console.log(signature);
-    console.log(PUBLIC_KEY);
+    // console.log(timestamp);
+    // console.log(signature);
+    // console.log(PUBLIC_KEY);
     const isVerified = nacl.sign.detached.verify(
         Buffer.from(timestamp + body),
         Buffer.from(signature, "hex"),
@@ -47,7 +47,7 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
     const theUser = bodyParsed.member.user.global_name;
 
     if (bodyParsed.data.name === 'askthestars') {
-        messageContent = `*You asked the ✨Stars✨\n*` +
+        messageContent = `*${theUser} asked the ✨Stars✨*\n` +
         `The dice rolled <${oracleResult.die1+1}> <${oracleResult.die2+1}> \n` +
         `**Inspiration**\n` +
         `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
@@ -94,6 +94,6 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Ask the Stars Discord App listening on port ${port}`);
+    console.log(`DM the Stars listening on port ${port}`);
 })
 
