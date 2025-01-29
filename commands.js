@@ -71,7 +71,13 @@ const cmds = [{
   name: 'inspiration',
   type: 1,
   description: "Ask the stars for inspiration",
-}];
+},
+{
+  name: "help",
+  type: 1,
+  description: "Ask the stars for help with this app"
+}
+];
 
 // For authorization, you can use either your bot token
 const headers = {

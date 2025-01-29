@@ -77,6 +77,12 @@ app.all('/', express.raw({ type: '*/*' }), (req, res) => {
         `The Stars have answered.\n` +
         `**Symbol**: ${oracleResult.symbol.symbolic} (${oracleResult.symbol.literal})\n` +
         `**Position**: ${oracleResult.position.symbolic} (${oracleResult.position.literal})\n`;
+    } else if (bodyParsed.data.name === 'help') {
+        const {version} = require('./package.json');
+        messageContent = `DM The Stars Discord App version ${version}. \n` +
+            `Homepage: ${process.env.HOMEPAGE}\n` +
+            `Source Code: ${process.env.SOURCE}\n` +
+            `Report an Issue: ${process.env.ISSUES}`;
     } else {
         messageContent = 'The stars are not familiar with this command.'
     }
