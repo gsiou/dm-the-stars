@@ -1,5 +1,8 @@
 # DM The Stars Discord App
 
+## What's this?
+Ask the Stars is a minimal solo RPG by Chris McDowall (https://www.bastionland.com). DM the Stars is an unofficial Ask the Stars Discord helper.
+
 ## Setup
 You need a .env
 ```
