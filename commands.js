@@ -44,15 +44,9 @@ const cmds = [{
 }
 ];
 
-// For authorization, you can use either your bot token
 const headers = {
   Authorization: `Bot ${process.env.BOT_TOKEN}`
 };
-
-// or a client credentials token for your app with the applications.commands.update scope
-// const headers = {
-//   Authorization: "Bearer <my_credentials_token>"
-// };
 
 for (data of cmds) {
   axios.post(url, data, { headers })
