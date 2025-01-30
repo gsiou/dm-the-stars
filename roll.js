@@ -1,4 +1,4 @@
-const tables = require('./sample_oracle');
+const tables = require('./ask_the_stars_oracle');
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);

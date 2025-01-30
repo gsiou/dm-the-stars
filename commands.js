@@ -57,4 +57,3 @@ for (data of cmds) {
     console.error('Error creating command:', error.response?.data || error.message);
   });
 }
-
