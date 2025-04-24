@@ -11,6 +11,10 @@ const PUBLIC_KEY = process.env.PUBLIC_KEY;
 
 app.use(morgan('combined'));
 
+app.get('/status', (req, res) => {
+    return res.status(200).send('OK');
+});
+
 app.all('/', express.raw({ type: '*/*' }), (req, res) => {
     const body = req.body.toString();
     console.log(body);
